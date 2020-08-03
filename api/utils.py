@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 
 
-class AirplaneUtils(object):
+class AirplaneCalc(object):
     def __init__(self, airplane):
         self.airplane = airplane
 

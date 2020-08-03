@@ -2,7 +2,7 @@ from django.conf import settings
 
 from rest_framework import serializers
 
-from .utils import AirplaneUtils
+from .utils import AirplaneCalc
 
 
 class AirplaneSerializer(serializers.Serializer):
@@ -27,26 +27,26 @@ class AirplaneSerializer(serializers.Serializer):
         fields = ('id', 'passengers', 'tank_capacity', 'fuel_consumption')
 
     def validate(self, data):
-        airplane = AirplaneUtils(data)
+        airplane = AirplaneCalc(data)
         if airplane.fuel_required > airplane.tank_capacity:
             raise serializers.ValidationError(
                 'Plane cannot accept that much passengers.')
         return data
 
     def get_tank_capacity(self, obj):
-        return AirplaneUtils(obj).tank_capacity
+        return AirplaneCalc(obj).tank_capacity
 
     def get_per_passenger_consumption(self, obj):
-        return AirplaneUtils(obj).per_passenger_consumption
+        return AirplaneCalc(obj).per_passenger_consumption
 
     def get_per_minute_fuel_consumption(self, obj):
-        return AirplaneUtils(obj).per_minute_fuel_consumption
+        return AirplaneCalc(obj).per_minute_fuel_consumption
 
     def get_max_fly_minutes(self, obj):
-        return AirplaneUtils(obj).max_fly_minutes
+        return AirplaneCalc(obj).max_fly_minutes
 
     def get_fuel_required(self, obj):
-        return AirplaneUtils(obj).fuel_required
+        return AirplaneCalc(obj).fuel_required
 
 
 class AirlineSerializer(serializers.Serializer):
